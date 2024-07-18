@@ -12,29 +12,51 @@ Spring 2024
 General
 =================
 
-This document outlines the dating algorithm for the web-application 'Tindar'.
-In the following sections, I will give background information on the application. Then, I will describe the general structure of the code.
+This repo contains the portion of the 'Tindar' background that relate to the swiping algorithm, that allows users to load a deck and swipe through potential matches. This document outlines that algorithm, and my testing process to ensure it was successful.
+In the following sections, I  give background information on the application. Then, I  describe the structure of the algorithm.
 Finally, I include information about my testing processes.
 
 
-Description of Application
+Background on Application
 =================
 'Tindar' is a Dartmouth specific dating app. It parodies the popular application 'Tinder', in it's purpose (to connect users romantically). However, it also parodies 'LinkedIn', by replacing standard terms with business-related ones.
-For example, each user is called an 'applicant'. And, instead of 'liking' a profile, one gives an 'offer'.
+For example, each user is called an 'applicant'. And, if one wants to pursue a connection with another applicant, instead of 'liking' their profile, one gives out an 'offer'.
 
-'Tindar' differentiates itself with a few unique features.
+'Tindar' also differentiates itself from other applications with a few unique features.
 
 Referals
 --------------------------------
+An applicant can make a ’referral’ between any two other applicants. For ex- ample, applicant A is friends with applicants B and C, who would like to explore a potential partnership. Applicant A can make a referral between applicants B and C, and they will match with each other. Every 48 hours, applicant A can refer any two applicants.
 
 Endorsements
 --------------------------------
+An applicant can ’endorse’ another applicant’s skills. For example, assume applicant A is a friend of applicant B. Applicant A can submit a message to endorse applicant B.
+The users with the most endorsements will appear on a separate page of the application. Any applicant can scroll through this leader board of the most highly endorsed applicants from the entire user base. The leader board will show the endorsed applicant’s profile, their ranking (position on the leader board, determined by number of endorsements), and the endorsement messages they have received will interchange beneath the profile.
 
 
+Structure of the Algorithm
+=================
+
+Classes
 --------------------------------
 
-This write up focuses on the dating algorithm that I developped.
+Data Storage
+--------------------------------
 
+Logic
+--------------------------------
+
+Testing
+=================
+
+TEST_small.py
+--------------------------------
+
+TEST_large.py
+--------------------------------
+
+TEST_withDatabase.py
+--------------------------------
 
 
 <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
