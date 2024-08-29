@@ -1,7 +1,6 @@
 ## 'algLib.py' - contains several functions that relate to database querierying, graph visualization, editing, and analysis. These functions are relevant for our usage and analysis of the algorithm.
 ## Spencer Reith, Summer 2024
 
-## also might want to create some way to protect the database... ie, one wry sequal command can't destroy the whole thing.
 
 from classes.applicant import Applicant
 import sqlite3
@@ -9,35 +8,9 @@ import matplotlib.pyplot as plt
 import networkx as nx
 import scipy as sp
 
-## Might want to throw exceptions in cases that insertions don't work.. IE, insert tindar index, but if that fails return something.
-
-## I'm gonna need to adjust some stuff based on the code-14... oh no.
-## Should check tho for reciprocated 14-14's, because you could get refered then get blacklisted later
-## Might need to pull a list of all connections (which will consist of raw_matches and referrals) or something like that
-## That way they can be accessed using the messages feature, or at least you can click on their profile to view it.
-
-#### NOTES FOR FUTRE EDITS:
-### Error Handling: The code assumes that the database operations will always succeed. Adding error handling mechanisms (try-except blocks) around database operations can make the code more robust, especially in case of unexpected errors like database connection failures or query execution issues.
-### Parameter Validation: I'm going to need to validate parameters somewhere. In the most important cases, probably not here, but worth a double check. Real parameter validation needs to happen right after input from the user.
-
-## What if you get reffered to someone as they're in your queue but you haven't swiped on them
-## What happens if it tries to insert into DB but something's already there?
-## Might need to change 'addInteractionToDB' to attempt to add
-
-## Also, can we have some sort of front end graphic or alert when you're swiping and it's a match?
-## That might require some function for check_connection(a, b) or just to know the person came from response list... but I'm not sure, don't want it to take to long but check_connection for a simple SQL query should be fast
-## That said we already have the data from the resposne list... but we don't pass them through seperately.
-
 ########################################################
 ### FUNCTIONS FOR DATABASE QUERERING & GRAPH CONSTRUCTION + VISUALIZATION
 ########################################################
-## For a specific user I need to pull a random queue
-## I have a table in the database containing nodes
-## I will have a table in the databse containing edges
-
-## Run getCompositeQueue // already have this function elsewhere, but I feel like its too important and want to keep it seperate
-
-## Run getNodesFromDB
 
 def getNodesFromDB():
     # Connect to the SQLite database
@@ -65,7 +38,7 @@ def getEdgesFromDB():
     rows = cursor.fetchall()
     # Create a list to store the fetched data
     edges = []
-    # store in dictionary as {userID:applicant} ## NEED TO CHECK HERE (AKA: JUST RELABEL THE COMMENTS IN THIS PARAGRAPH CAUSSE I CHANGED STRUCTURE FROM DICTIIONARY TO LIST)
+    # store in dictionary as {userID:applicant}
     for row in rows:
         edge = row ## key by weight (at least for now)
         edges.append(edge) ## item is a list of [node a, node b]
@@ -91,7 +64,6 @@ def getStatisticsFromDB():
     return statistics # return nodes
 
 
-## Run buildSelfID_GraphFromDB
 def buildSelfID_GraphFromDB(selfID):
     ## initialize graph G
     G = nx.DiGraph()
@@ -110,7 +82,6 @@ def buildSelfID_GraphFromDB(selfID):
     return G ##  return whole_G
 
 
-## Run buildWholeGraphFromDB
 def buildWholeGraphFromDB():
     ## initialize graph G
     G = nx.DiGraph()
@@ -119,23 +90,18 @@ def buildWholeGraphFromDB():
     for key, value in applicantDictionary.items():
         G.add_node(key, sex=value.getSex(), prefSex=value.getPrefSex())
     
-    ##  THIS IS NOT TRUE, I DON'T THINK: only select edges between (a, {x}) and ({x}, a) for every nodes x in the database
-    interactionsList = getEdgesFromDB()   #### NEED TO CHECK HERE
-    for interaction in interactionsList: ### NEED TO CHECK HERE
-        G.add_edge(interaction[0], interaction[1], weight=interaction[2]) ### THIS IS NO LONGER RIGHT SINCE I AM NOT KEYING BY WEIGHT ANYMORE
+    interactionsList = getEdgesFromDB()
+    for interaction in interactionsList:
+        G.add_edge(interaction[0], interaction[1], weight=interaction[2])
     
     return G ##  return graph selfID_G
 
 
 
-## Run visualizeGraph(G)
-##  visualize graph G
-
 ########################################################
 ### FUNCTIONS FOR GRAPH/DATABASE INSERTION #############
 ########################################################
 
-## Run createApplicantTable
 def createApplicantTable():
     conn = sqlite3.connect('../main.db')
     cursor = conn.cursor()
@@ -154,7 +120,6 @@ def createApplicantTable():
     conn.commit()
     conn.close()
 
-## Run createEdgeTable
 def createEdgeTable():
     ## assumes that the interaction is going FROM user a TO user b.
     ## so, [1,2,9] represents user 1 blacklisting user 2.
@@ -221,8 +186,8 @@ def addInteractionToGraph(G, a_userID, b_userID, edge_weight):
     G.add_edge(a_userID, b_userID, weight=edge_weight)
 
 ## Run addInteraction(selfID, otherID, weight)
-## -> either A: add to the database at the same time you add to the database, and you don't have to re-make the graph from the database. this is probably best.
-## -> or     B: add to the database, and every time you go to draw a queue, you need to build a new graph and then draw a queue. That's really not best.
+## ->  A: add to the database at the same time you add to the database, and you don't have to re-make the graph from the database. this is probably best.
+## ->  B: add to the database, and every time you go to draw a queue, you need to build a new graph and then draw a queue. That's really not best.
 def addInteraction(G, a_userID, b_userID, edge_weight):
     addInteractionToDB(a_userID, b_userID, edge_weight)
     addInteractionToGraph(G, a_userID, b_userID, edge_weight)
@@ -353,11 +318,6 @@ def calcStatistics(G):
     ID_list = list(G.nodes())
     for ID in ID_list:
         calcApplicantStatistics(G, ID)
-
-
-##  run calcOfferReceptionRate (percentage at which an applicant recieve offers)
-##  run calcOfferBestowalRate (percentage at which an applicant bestows offers)
-##  write statistics into the database
 
 ## Run writeApplicantStatistics(filepath)
 def writeApplicantStatistics():

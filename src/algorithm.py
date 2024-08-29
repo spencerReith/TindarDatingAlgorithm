@@ -15,18 +15,6 @@ import math
 
 testG = nx.DiGraph()
 
-# for key, value in applicantDictionary.items():
-#     testG.add_node(key, sex=value.getSex(), prefSex=value.getPrefSex())
-
-
-# testG.add_edge(108, 100, weight=0)
-# testG.add_edge(109, 100, weight=9)
-# testG.add_edge(110, 100, weight=1)
-# testG.add_edge(111, 100, weight=1)
-# testG.add_edge(112, 100, weight=1)
-# testG.add_edge(100, 103, weight=1)
-
-
 ########################################################
 ### ITERATE THROUGH IN-DEGREE's AND FIND CURRENT OFFERS
 ########################################################
@@ -142,10 +130,6 @@ def getCompositeQueue(G, selfID, cap):
         response_cap = totalCap - len(unmet_list)
     response_list = findResponseList(current_offers, response_cap)
 
-    ## Print statements
-    ## unmet_list, response_list, composite_queue
-    # print("response_list: ", response_list)
-    # print("unmet_list: ", unmet_list)
     composite_queue = unmet_list + response_list
     random.shuffle(composite_queue)
 

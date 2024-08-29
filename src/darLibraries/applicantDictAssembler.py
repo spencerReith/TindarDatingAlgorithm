@@ -8,7 +8,7 @@ def getApplicantDict():
     applicants_mf = '../textFiles/applicants_mf.csv'
     applicants_mb = '../textFiles/applicants_mb.csv'
     applicants_mm = '../textFiles/applicants_mm.csv'
-    applicants_fm = '../textFiles/new_applicants_fm.csv'
+    applicants_fm = '../textFiles/applicants_fm.csv'
     applicants_fb = '../textFiles/applicants_fb.csv'
     applicants_ff = '../textFiles/applicants_ff.csv'
 
