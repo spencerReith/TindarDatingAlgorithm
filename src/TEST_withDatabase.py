@@ -1,3 +1,12 @@
+'''
+File: 'TEST_large.py'
+Date: Summer 2024
+Author: Spencer Reith
+
+Description:
+    Tests the algorithm with database querying to ensure everything works as expected.
+'''
+
 ## 'algLibTest.py' – testing functions in the algLib (algorithm library)
 import darLibraries.algLib as algLib
 import sqlite3

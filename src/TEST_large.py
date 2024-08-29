@@ -1,3 +1,13 @@
+'''
+File: 'TEST_large.py'
+Date: Summer 2024
+Author: Spencer Reith
+
+Description:
+    Tests some basic, and several edge cases for the algorithm to ensure it loads decks as expected. Let's one visualize the data through networkx graphs.
+'''
+
+
 from classes.applicant import Applicant
 from algorithm import getCompositeQueue
 from darLibraries.algLib import getNodesFromDB
@@ -6,26 +16,6 @@ import matplotlib.pyplot as plt
 import networkx as nx
 import scipy as sp
 
-# def getApplicantDictfromDB():
-    
-#     # Connect to the SQLite database
-#     conn = sqlite3.connect('../main.db')
-#     cursor = conn.cursor()
-#     # Fetch data from the table
-#     cursor.execute('SELECT * FROM applicant_pool;')
-#     rows = cursor.fetchall()
-#     # Create a dictionary to store the fetched data
-#     applicantDict = {}
-
-#     # store in dictionary as {userID:applicant}
-#     for row in rows:
-#         key = int(row[0])
-#         applicantDict[key] = Applicant(int(row[1]), row[2], row[3], row[4], row[5], row[6])
-        
-
-#     # Close the connection
-#     conn.close()
-#     return applicantDict
 
 applicantDictionary = getNodesFromDB()
 

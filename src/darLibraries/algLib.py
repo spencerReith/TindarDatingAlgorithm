@@ -1,3 +1,15 @@
+'''
+File: 'algLib.py'
+Summer 2024
+Spencer Reith
+
+Description:
+    Contains functions for querying a SQLite database, constructing and visualizing graphs,
+    and analyzing data related to the swiping. It handles operations such as 
+    fetching data from the database, building and visualizing graphs, inserting and updating data, 
+    and calculating statistics. Some of the statistical algorithms are related to functions not showcased in this repo.
+'''
+
 ## 'algLib.py' - contains several functions that relate to database querierying, graph visualization, editing, and analysis. These functions are relevant for our usage and analysis of the algorithm.
 ## Spencer Reith, Summer 2024
 
